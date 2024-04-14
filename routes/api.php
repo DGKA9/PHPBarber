@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BranchBookingController;
+use App\Http\Controllers\Api\BranchServiceController;
+use App\Http\Controllers\Api\ServiceEmployeeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProductController;
@@ -49,7 +52,7 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('profile', [AuthController::class, 'profile']);
-        
+
 
 });
 
@@ -100,7 +103,7 @@ Route::group([
     Route::post('/bookings', [BookingController::class, 'create']);
     Route::put('/bookings/{id}', [BookingController::class, 'update']);
     Route::delete('/bookings/{id}', [BookingController::class, 'delete']);
-    
+
     Route::get('/products', [ProductController::class, 'getAll']);
     Route::get('/products/{id}', [ProductController::class, 'getById']);
     Route::post('/products', [ProductController::class, 'create']);
@@ -149,5 +152,21 @@ Route::group([
     Route::put('detail-products/{id}', [DetailProductController::class, 'update']);
     Route::delete('detail-products', [DetailProductController::class, 'delete']);
 
+    Route::get('serviceEmployee', [ServiceEmployeeController::class, 'getAll']);
+    //Route::get('bookings-services', [BookingServiceController::class, 'getById']);
+    Route::post('serviceEmployee', [ServiceEmployeeController::class, 'create']);
+    Route::put('serviceEmployee', [ServiceEmployeeController::class, 'update']);
+    Route::delete('serviceEmployee', [ServiceEmployeeController::class, 'delete']);
 
-    
+    Route::get('branchServices', [BranchServiceController::class, 'getAll']);
+    //Route::get('bookings-services', [BookingServiceController::class, 'getById']);
+    Route::post('branchServices', [BranchServiceController::class, 'create']);
+    Route::put('branchServices', [BranchServiceController::class, 'update']);
+    Route::delete('branchServices', [BranchServiceController::class, 'delete']);
+
+    Route::get('branchBooking', [BranchBookingController::class, 'getAll']);
+    //Route::get('bookings-services', [BookingServiceController::class, 'getById']);
+    Route::post('serviceEmployee', [BranchBookingController::class, 'create']);
+    Route::put('serviceEmployee', [BranchBookingController::class, 'update']);
+    Route::delete('serviceEmployee', [BranchBookingController::class, 'delete']);
+

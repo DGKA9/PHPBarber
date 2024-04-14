@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('description', 256);
             $table->double('price');
             $table->time('serviceTime');
+
             $table->timestamps();
         });
     }
