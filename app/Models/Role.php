@@ -13,7 +13,7 @@ class Role extends Model
     use HasFactory;
 
     protected $table = 'roles';
-    protected $primaryKey = 'RoleID';
+    protected $primaryKey = 'roleID';
     public $incrementing = false;
     protected $keyType = 'string';
     public $timestamps = false;

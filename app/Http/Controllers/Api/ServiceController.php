@@ -32,8 +32,6 @@ class ServiceController extends Controller
     {
         try{
             $validatedData = $this->serviceValidator->validate($request->all());
-            $validatedData['serviceName'] = $request->input('serviceName');
-            $validatedData['description'] = $request->input('description');
             $service = Service::create($validatedData);
             return response()->json($service, 201);
         } catch (\Exception $e) {

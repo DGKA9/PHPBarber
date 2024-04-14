@@ -17,8 +17,7 @@ class Service extends Model
     protected $keyType = 'string';
     public $timestamps = false;
     protected $fillable = [
-        'serviceID',
-        'serviceName'.
+        'serviceName',
         'description',
         'price',
         'serviceTime'

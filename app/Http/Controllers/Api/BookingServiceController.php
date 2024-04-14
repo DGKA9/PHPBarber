@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\UpdateBookingEndTime;
+use App\Models\Booking;
 use App\Models\BookingService;
+use App\Models\Service;
 use App\Services\Validator\BookingServiceValidator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class BookingServiceController extends Controller
 {
@@ -37,7 +41,12 @@ class BookingServiceController extends Controller
         try {
             $validatedData = $this->bookingServiceValidator->validate($request->all());
 
+            $bookingID = $validatedData['bookingID'];
+            $serviceID = $validatedData['serviceID'];
+
             $bookingService = BookingService::create($validatedData);
+
+            UpdateBookingEndTime::dispatch($bookingID, $serviceID);
 
             return response()->json($bookingService, 201);
         } catch (\Exception $e) {

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->uuid('serviceID');
             $table->timestamps();
 
-            $table->primary(['bookingID', 'serviceID']);
             $table->foreign('bookingID')->references('bookingID')->on('bookings')->onDelete('cascade');
             $table->foreign('serviceID')->references('serviceID')->on('services')->onDelete('cascade');
         });
