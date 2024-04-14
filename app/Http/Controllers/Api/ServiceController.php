@@ -31,12 +31,14 @@ class ServiceController extends Controller
     public function create(Request $request)
     {
         try{
-        $validatedData = $this->serviceValidator->validate($request->all());
-        $service = Service::create($validatedData);
-        return response()->json($service, 201);
-     } catch (\Exception $e) {
-        return response()->json(['message' => $e->getMessage()], 500);
-    }
+            $validatedData = $this->serviceValidator->validate($request->all());
+            $validatedData['serviceName'] = $request->input('serviceName');
+            $validatedData['description'] = $request->input('description');
+            $service = Service::create($validatedData);
+            return response()->json($service, 201);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
     }
 
     public function update(Request $request, $id)
