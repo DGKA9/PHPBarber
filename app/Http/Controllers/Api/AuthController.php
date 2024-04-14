@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Customer;
 use App\Models\User;
 use App\Services\Auth\CreateRefreshToken;
 use App\Services\Validator\RegisterValidator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -35,16 +37,24 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $registerUserData = $this->registerUserData->RegisterValidator($request->all());
-        $user = User::create([
-            'userID' => Str::uuid(),
-            'name' => $registerUserData['name'],
-            'email' => $registerUserData['email'],
-            'password' => Hash::make($registerUserData['password']),
-            'roleID' => $registerUserData['roleID']
-        ]);
-        return response()->json([
-            'message' => 'User Created ',
-        ]);
+        try {
+            $userID = (string) Str::uuid();
+            $user = User::create([
+                'userID' => $userID,
+                'name' => $registerUserData['name'],
+                'email' => $registerUserData['email'],
+                'password' => Hash::make($registerUserData['password']),
+                'roleID' => $registerUserData['roleID']
+            ]);
+            $user->save();
+            DB::commit();
+            return response()->json([
+                'message' => 'User Created',
+                'user' => $user,
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
     public function profile()
     {

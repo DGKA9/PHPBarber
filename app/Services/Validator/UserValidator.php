@@ -10,7 +10,7 @@ class UserValidator
     public function validate(array $request, $userId = null)
     {
         $rules = [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:users,name',
             'email' => 'required|email|unique:users,email' . ($userId ? ",{$userId},UserID" : ''),
             'password' => 'required|string|min:6',
             'roleID' => 'required|exists:roles,RoleID',

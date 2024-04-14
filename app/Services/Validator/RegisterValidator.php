@@ -18,7 +18,12 @@ class RegisterValidator
         $validator = Validator::make($request, [
             'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
-            'password' => 'required|min:8',
+//            'password' => 'required|min:8',
+            'password' => [
+                'required',
+                'min:8',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
+            ],
             'roleID' => 'required'
         ]);
 
